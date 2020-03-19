@@ -1,32 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
-import { ShoppingListService } from '../shoping-list/shopping-list.service';
 import { Subject } from 'rxjs';
-
+import { Store } from '@ngrx/store';
+import * as ShoppingListActions from '../shoping-list/store/shopping-list.action';
+import * as fromApp from '../../app/store/app.reducer';
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
   private recipeList: Recipe[] = [];
 
-  // private recipeList: Recipe[] = [
-  //   new Recipe('Sample Recipe One', 'This is the description of Recipe one',
-  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEJCGuiWhJZPkqISCfLgl9902l0lWnLRwx9OFnfrz-s5I82hAog&s',
-  //     [new Ingredient('Tomato', 3),
-  //     new Ingredient('Orange', 10)]),
-  //   new Recipe('Sample Recipe Two', 'This is the description of Recipe two',
-  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEJCGuiWhJZPkqISCfLgl9902l0lWnLRwx9OFnfrz-s5I82hAog&s',
-  //     [new Ingredient('Tomato', 3),
-  //     new Ingredient('Orange', 10)]),
-  //   new Recipe('Sample Recipe Three', 'This is the description of Recipe three',
-  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEJCGuiWhJZPkqISCfLgl9902l0lWnLRwx9OFnfrz-s5I82hAog&s',
-  //     [new Ingredient('Tomato', 3),
-  //     new Ingredient('Orange', 10)])
-  // ];
-
   recipeChanges = new Subject<Recipe[]>();
-  constructor(private shoppingListSvc: ShoppingListService) { }
+  constructor(
+    private store: Store<fromApp.AppState>
+  ) { }
 
   getRecipes() {
     return this.recipeList;
@@ -37,7 +25,7 @@ export class RecipeService {
   }
 
   addIngredientToShoppingList(ingredient: Ingredient[]) {
-    this.shoppingListSvc.addIngredients(ingredient);
+    this.store.dispatch(new ShoppingListActions.AddIngredients(ingredient));
   }
 
   addRecipe(recipe: Recipe) {

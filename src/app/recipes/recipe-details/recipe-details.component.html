@@ -10,14 +10,14 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <div appDropdown [ngClass]="{open:clicked}" class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle">
+        <div appDropdown class="dropdown">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                 Manage Recipe <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu open">
-                <li><a (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
-                <li><a [routerLink]="['edit']" style="cursor: pointer;">Edit Recipe</a></li>
-                <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" (click)="onAddToShoppingList()" style="cursor: pointer;">To Shopping List</a></li>
+                <li><a class="dropdown-item" [routerLink]="['edit']" style="cursor: pointer;">Edit Recipe</a></li>
+                <li><a class="dropdown-item" style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
             </ul>
         </div>
     </div>
